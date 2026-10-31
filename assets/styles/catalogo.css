@@ -1,0 +1,60 @@
+/* =====================================
+Categorías y productos
+===================================== */
+
+/* Color de la categoría seleccionada */
+#productos .list-group-item.active {
+    background-color: #294C3B;
+    border-color: #294C3B;
+    color: #FFFFFF;
+}
+
+/* Efecto al pasar el mouse sobre las categorías */
+#productos .list-group-item:not(.active):hover {
+    background-color: #E8DED0;
+    color: #35271F;
+}
+
+/* Fotografías de los productos */
+#listaProductos .card-img-top {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Diseño de las tarjetas */
+#listaProductos .card {
+    border: 1px solid #DDD4C8;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto suave sobre las tarjetas */
+#listaProductos .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(53, 39, 31, 0.10);
+}
+
+/* Botones de los productos */
+#listaProductos .btn-success {
+    background-color: #294C3B;
+    border-color: #294C3B;
+}
+
+/* Efecto hover de los botones */
+#listaProductos .btn-success:hover {
+    background-color: #1E392C;
+    border-color: #1E392C;
+}
+
+/* Adaptación para usuarios que prefieren menos animaciones */
+@media (prefers-reduced-motion: reduce) {
+    #listaProductos .card {
+        transition: none;
+    }
+
+    #listaProductos .card:hover {
+        transform: none;
+    }
+}
