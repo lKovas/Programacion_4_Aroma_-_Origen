@@ -75,11 +75,28 @@ if (!productoSeleccionado) {
                     ${productoSeleccionado.disponible ? "Disponible" : "Agotado"}
                 </p>
 
+                <!-- Cantidad de productos -->
+                <div class="mb-3">
+                    <label for="cantidadProducto" class="form-label">
+                        Cantidad:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidadProducto"
+                        class="form-control"
+                        min="1"
+                        max="10"
+                        value="1"
+                        style="width: 100px;"
+                        ${productoSeleccionado.disponible ? "" : "disabled"}>
+                </div>
+
                 <button
                     type="button"
                     id="agregarCarrito"
                     data-producto-id="${productoSeleccionado.id}"
-                    class="btn btn-success btn-lg mt-3"
+                    class="btn btn-success btn-lg"
                     ${productoSeleccionado.disponible ? "" : "disabled"}>
                     Agregar al carrito
                 </button>
@@ -108,4 +125,28 @@ function obtenerNombreCategoria(categoria) {
     }
 
     return categoria;
+}
+
+// Mensaje al agregar un producto al carrito
+const botonCarrito = document.getElementById("agregarCarrito");
+
+if (botonCarrito) {
+
+    botonCarrito.addEventListener("click", function() {
+
+        const cantidad = Number(document.getElementById("cantidadProducto").value);
+
+        if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 10) {
+            alert("Ingrese una cantidad válida entre 1 y 10.");
+            return;
+        }
+
+        if (cantidad === 1) {
+            alert("Se agregó 1 unidad de " + productoSeleccionado.nombre + " al carrito.");
+        } else {
+            alert("Se agregaron " + cantidad + " unidades de " + productoSeleccionado.nombre + " al carrito.");
+        }
+
+    });
+
 }
