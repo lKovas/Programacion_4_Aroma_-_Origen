@@ -511,6 +511,8 @@ textarea {
   line-height: 1;
 }
 
+
+
 /* Escritorio: columnas laterales iguales para centrar el menú */
 @media (min-width: 992px) {
   .ao-navbar > .ao-navbar-container {
@@ -520,6 +522,159 @@ textarea {
 
   .ao-navbar .ao-navbar-menu {
     justify-content: center;
+  }
+}
+
+/* FOOTER */
+footer.ao-footer {
+  width: 100%;
+  padding: 28px 0;
+  background-color: #30231d;
+  color: #ffffff;
+}
+
+/* Contenedor */
+footer.ao-footer > .container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0 24px !important;
+}
+
+/* Distribución: logo | enlaces | redes | frase */
+footer.ao-footer > .container > .row {
+  display: grid;
+  grid-template-columns:
+    minmax(200px, 1.2fr)
+    minmax(230px, 1.2fr)
+    minmax(140px, 0.7fr)
+    minmax(180px, 1fr);
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+}
+
+/* Evitar conflictos con columnas Bootstrap */
+footer.ao-footer > .container > .row > div {
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Enlaces generales */
+footer.ao-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+footer.ao-footer a:hover {
+  opacity: 0.75;
+}
+
+footer.ao-footer a:focus-visible {
+  outline: 2px solid #e0bf83;
+  outline-offset: 5px;
+}
+
+/* Logo */
+footer.ao-footer > .container > .row > div:first-child > a {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+}
+
+footer.ao-footer img {
+  display: block;
+  width: 216px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Navegación */
+footer.ao-footer nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 22px !important;
+}
+
+footer.ao-footer nav a {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Grupo de redes */
+footer.ao-footer > .container > .row > div:nth-child(3) > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px !important;
+}
+
+/* Separador vertical */
+footer.ao-footer .ao-footer-separator {
+  display: block;
+  flex-shrink: 0;
+  width: 1px;
+  height: 32px;
+  margin-right: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 0;
+}
+
+/* Enlaces de redes sociales */
+footer.ao-footer > .container > .row > div:nth-child(3) a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 36px;
+}
+
+/* Iconos Font Awesome 6 */
+footer.ao-footer .fa-brands {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Frase */
+footer.ao-footer .ao-footer-quote {
+  margin: 0;
+  color: #eadbc8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.45;
+  text-align: right;
+}
+
+/* Móviles y tablets */
+@media (max-width: 991.98px) {
+  .ao-footer {
+    padding: 24px 0;
+  }
+
+  .ao-footer-separator {
+    display: none;
+  }
+
+  .ao-footer-quote {
+    margin-top: 8px;
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ao-footer a {
+    transition: none;
   }
 }
 
