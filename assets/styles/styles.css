@@ -16,9 +16,8 @@
   --ao-border: #ddd4c8;
 
   /*
-   * Estas fuentes tienen alternativas locales.
-   * Playfair Display e Inter deben cargarse por separado
-   * si el equipo decide utilizarlas.
+   * Playfair Display e Inter deben cargarse por separado.
+   * Si no están disponibles, se usan las alternativas locales.
    */
   --ao-font-heading: "Playfair Display", Georgia, serif;
   --ao-font-body: "Inter", Arial, sans-serif;
@@ -71,6 +70,12 @@ h3 {
   line-height: 1.2;
 }
 
+/* Títulos blancos en las categorías */
+.ao-category-overlay h3,
+.ao-category-overlay-tea h3 {
+  color: #fff;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -83,7 +88,7 @@ textarea {
   font: inherit;
 }
 
-/* 3. Espaciado compartido */
+/* 3. Espaciado y elementos compartidos */
 .page-section {
   padding-block: clamp(2rem, 5vw, 4rem);
 }
@@ -92,11 +97,36 @@ textarea {
   margin-bottom: 1.5rem;
 }
 
-.surface {
+.surface,
+.ao-contact-form {
   background-color: var(--ao-white);
   border: 1px solid var(--ao-border);
+}
+
+.surface {
   border-radius: var(--ao-radius);
   padding: clamp(1rem, 3vw, 2rem);
+}
+
+.ao-font-georgia,
+.ao-heading-coffee,
+.ao-footer-brand,
+.ao-footer-quote {
+  font-family: Georgia, serif;
+}
+
+.ao-heading-coffee {
+  color: var(--ao-coffee);
+}
+
+.ao-text-muted {
+  color: var(--ao-muted);
+}
+
+.ao-brand-accent,
+.ao-catalog-link,
+.product-price {
+  color: var(--ao-green);
 }
 
 /* 4. Encabezado */
@@ -107,8 +137,12 @@ textarea {
   --bs-navbar-brand-color: var(--ao-coffee);
   --bs-navbar-brand-hover-color: var(--ao-green);
 
-  background-color: var(--ao-cream);
   border-bottom: 1px solid var(--ao-border);
+}
+
+.navbar,
+.ao-contact {
+  background-color: var(--ao-cream);
 }
 
 .navbar-brand {
@@ -116,55 +150,53 @@ textarea {
   font-weight: 600;
 }
 
-/* 5. Botones
-   Cambiar --bs-primary no modifica por sí solo
-   todos los estados de los botones de Bootstrap.
-*/
+/* 5. Botones */
 .btn {
   min-height: 2.75rem;
   border-radius: 0.5rem;
   font-weight: 600;
 }
 
-.btn-primary {
-  --bs-btn-color: var(--ao-white);
-  --bs-btn-bg: var(--ao-green);
+/*
+ * Variables compartidas por ambos tipos de botón.
+ * Se conservan los estados hover, active y disabled.
+ */
+.btn-primary,
+.btn-outline-primary {
   --bs-btn-border-color: var(--ao-green);
 
   --bs-btn-hover-color: var(--ao-white);
-  --bs-btn-hover-bg: var(--ao-green-dark);
-  --bs-btn-hover-border-color: var(--ao-green-dark);
 
   --bs-btn-active-color: var(--ao-white);
   --bs-btn-active-bg: var(--ao-green-dark);
   --bs-btn-active-border-color: var(--ao-green-dark);
 
-  --bs-btn-disabled-color: var(--ao-white);
-  --bs-btn-disabled-bg: var(--ao-green);
   --bs-btn-disabled-border-color: var(--ao-green);
 
   --bs-btn-focus-shadow-rgb: 41, 76, 59;
+}
+
+.btn-primary {
+  --bs-btn-color: var(--ao-white);
+  --bs-btn-bg: var(--ao-green);
+
+  --bs-btn-hover-bg: var(--ao-green-dark);
+  --bs-btn-hover-border-color: var(--ao-green-dark);
+
+  --bs-btn-disabled-color: var(--ao-white);
+  --bs-btn-disabled-bg: var(--ao-green);
 }
 
 .btn-outline-primary {
   --bs-btn-color: var(--ao-green);
-  --bs-btn-border-color: var(--ao-green);
 
-  --bs-btn-hover-color: var(--ao-white);
   --bs-btn-hover-bg: var(--ao-green);
   --bs-btn-hover-border-color: var(--ao-green);
 
-  --bs-btn-active-color: var(--ao-white);
-  --bs-btn-active-bg: var(--ao-green-dark);
-  --bs-btn-active-border-color: var(--ao-green-dark);
-
   --bs-btn-disabled-color: var(--ao-green);
-  --bs-btn-disabled-border-color: var(--ao-green);
-
-  --bs-btn-focus-shadow-rgb: 41, 76, 59;
 }
 
-/* 6. Tarjetas */
+/* 6. Tarjetas y productos */
 .card {
   --bs-card-bg: var(--ao-white);
   --bs-card-border-color: var(--ao-border);
@@ -173,17 +205,22 @@ textarea {
   box-shadow: var(--ao-shadow);
 }
 
+.product-image,
+.ao-hero-image,
+.ao-category-image,
+.ao-history-image {
+  object-fit: cover;
+}
+
 .product-image {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
   background-color: var(--ao-sand);
   border-radius: var(--ao-radius) var(--ao-radius) 0 0;
 }
 
 .product-price {
-  color: var(--ao-green);
   font-weight: 600;
 }
 
@@ -221,7 +258,90 @@ textarea {
   --bs-table-border-color: var(--ao-border);
 }
 
-/* 9. Pie de página */
+/* 9. Portada principal */
+.ao-hero-image {
+  height: 390px;
+}
+
+.ao-hero-overlay {
+  background: linear-gradient(90deg,
+      rgba(248, 245, 239, 0.96) 0%,
+      rgba(248, 245, 239, 0.78) 43%,
+      rgba(53, 39, 31, 0.05) 100%);
+}
+
+.ao-hero-content {
+  max-width: 510px;
+}
+
+.ao-hero-eyebrow,
+.ao-history-eyebrow {
+  color: var(--ao-terracotta);
+}
+
+.ao-hero-eyebrow {
+  letter-spacing: 4px;
+  font-size: 11px;
+}
+
+/* 10. Categorías */
+.ao-category-image {
+  height: 145px;
+}
+
+.ao-category-overlay {
+  background: linear-gradient(90deg,
+      rgba(53, 39, 31, 0.9),
+      transparent);
+}
+
+.ao-category-overlay-tea {
+  background: linear-gradient(90deg,
+      rgba(30, 57, 44, 0.85),
+      transparent);
+}
+
+/* 11. Beneficios */
+.ao-benefits {
+  background-color: var(--ao-sand);
+}
+
+/* 12. Nuestra historia */
+.ao-history-image {
+  height: 240px;
+  width: 100%;
+}
+
+.ao-history-eyebrow {
+  letter-spacing: 3px;
+}
+
+/* 13. Contacto */
+.ao-contact-info {
+  background-color: var(--ao-green-dark);
+}
+
+.ao-contact-details {
+  z-index: 1;
+}
+
+.ao-contact-icon,
+.ao-footer-symbol {
+  color: #e4b66b;
+}
+
+.ao-contact-decoration {
+  font-size: 75px;
+  color: #d6ad70;
+  opacity: 0.65;
+}
+
+.ao-contact-submit {
+  background-color: var(--ao-coffee);
+  border-color: var(--ao-coffee);
+}
+
+/* 14. Pie de página */
 .site-footer {
   margin-top: auto;
   padding-block: 1.5rem;
@@ -230,8 +350,212 @@ textarea {
   color: var(--ao-coffee);
 }
 
-/* 10. Accesibilidad */
+/* Variante oscura utilizada por el footer de inicio */
+.site-footer.ao-footer {
+  background-color: var(--ao-coffee);
+  color: var(--ao-cream);
+}
+
+.ao-footer-symbol {
+  font-size: 35px;
+}
+
+.ao-footer-brand {
+  font-size: 23px;
+}
+
+.ao-footer-tagline {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #d8c4a4;
+}
+
+.ao-footer-separator {
+  color: #d8b77c;
+  font-size: 25px;
+}
+
+.ao-footer-quote {
+  color: #e6d5b8;
+}
+
+/* 15. Accesibilidad */
 :where(a, button, input, select, textarea):focus-visible {
   outline: 3px solid var(--ao-green);
   outline-offset: 3px;
+}
+
+/* ==================================================
+   NAVBAR — LOGO, MENÚ CENTRAL Y ACCIONES
+   ================================================== */
+
+.ao-navbar {
+  padding-block: 0;
+}
+
+.ao-navbar > .ao-navbar-container {
+  max-width: 1280px;
+  min-height: 80px;
+  margin-inline: auto;
+  padding: 12px 32px;
+  column-gap: 24px;
+}
+
+/* Espacio para el logo completo */
+.ao-navbar .ao-logo-space {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  height: 54px;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.ao-logo-space img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Enlaces */
+.ao-navbar-links {
+  align-items: center;
+  gap: 40px;
+}
+
+.ao-navbar .nav-link {
+  position: relative;
+  padding-block: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ao-coffee);
+}
+
+.ao-navbar .nav-link.active {
+  color: var(--ao-coffee);
+}
+
+.ao-navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: var(--bs-navbar-nav-link-padding-x, 0);
+  right: var(--bs-navbar-nav-link-padding-x, 0);
+  height: 2px;
+  background-color: var(--ao-coffee);
+}
+
+/* Usuario y carrito */
+.ao-navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.ao-navbar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 40px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ao-coffee);
+  cursor: pointer;
+}
+
+.ao-navbar-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ao-navbar .nav-link:hover,
+.ao-navbar-icon:hover {
+  color: var(--ao-green);
+}
+
+.ao-navbar-divider {
+  width: 1px;
+  height: 26px;
+  background-color: var(--ao-border);
+}
+
+.ao-navbar-cart {
+  position: relative;
+}
+
+.ao-cart-count {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  display: grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  padding-inline: 4px;
+  border-radius: 50%;
+  background-color: var(--ao-coffee);
+  color: var(--ao-cream);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Escritorio: columnas laterales iguales para centrar el menú */
+@media (min-width: 992px) {
+  .ao-navbar > .ao-navbar-container {
+    display: grid;
+    grid-template-columns: minmax(250px, 1fr) auto minmax(250px, 1fr);
+  }
+
+  .ao-navbar .ao-navbar-menu {
+    justify-content: center;
+  }
+}
+
+/* Celulares y tabletas */
+@media (max-width: 991.98px) {
+  .ao-navbar > .ao-navbar-container {
+    padding-inline: 20px;
+    column-gap: 12px;
+  }
+
+  .ao-navbar .ao-logo-space {
+    width: clamp(100px, 28vw, 210px);
+    height: 48px;
+  }
+
+  .ao-navbar .navbar-toggler {
+    margin-left: auto;
+    padding: 6px;
+  }
+
+  .ao-navbar-actions {
+    gap: 10px;
+  }
+
+  .ao-navbar-divider {
+    height: 22px;
+  }
+
+  .ao-navbar-menu {
+    order: 4;
+    flex-basis: 100%;
+  }
+
+  .ao-navbar-links {
+    align-items: flex-start;
+    gap: 8px;
+    padding-block: 16px;
+  }
 }
