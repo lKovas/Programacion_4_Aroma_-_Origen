@@ -511,7 +511,17 @@ textarea {
   line-height: 1;
 }
 
+/* Mantener el navbar visible al desplazarse */
+#navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
 
+/* Separación al desplazarse hasta Contacto */
+#contacto {
+  scroll-margin-top: 120px;
+}
 
 /* Escritorio: columnas laterales iguales para centrar el menú */
 @media (min-width: 992px) {
@@ -532,6 +542,7 @@ footer.ao-footer {
   background-color: #30231d;
   color: #ffffff;
 }
+
 
 /* Contenedor */
 footer.ao-footer > .container {
@@ -654,6 +665,34 @@ footer.ao-footer .ao-footer-quote {
   font-style: italic;
   line-height: 1.45;
   text-align: right;
+}
+
+/* La página ocupa como mínimo toda la pantalla */
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* El contenido ocupa el espacio disponible */
+#contenido {
+    flex: 1 0 auto;
+}
+
+/* Navbar y footer conservan su tamaño */
+#navbar,
+#footer {
+    flex-shrink: 0;
+}
+
+#footer {
+    margin-top: auto;
 }
 
 /* Móviles y tablets */

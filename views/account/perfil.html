@@ -1,0 +1,204 @@
+<main class="ao-perfil">
+    <div class="container py-4">
+        <div class="ao-perfil-layout">
+
+            <!-- Navegación de la cuenta -->
+            <aside class="ao-perfil-menu">
+                <h1>Mi cuenta</h1>
+
+                <nav aria-label="Secciones de mi cuenta">
+                    <a href="#perfilDatos" class="ao-perfil-opcion activa">
+                        <i class="fa-solid fa-circle-user" aria-hidden="true"></i>
+                        Mi perfil
+                    </a>
+
+                    <a href="#perfilPedidos" class="ao-perfil-opcion">
+                        <i class="fa-solid fa-box" aria-hidden="true"></i>
+                        Mis pedidos
+                    </a>
+
+                    <a href="#perfilDireccion" class="ao-perfil-opcion">
+                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        Dirección
+                    </a>
+                </nav>
+
+                <div class="ao-perfil-frase">
+                    <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+                    <p>Buen café,<br>mejores historias.</p>
+                </div>
+
+                <p class="ao-perfil-demo">
+                    Perfil de demostración.<br>
+                    Datos ficticios para fines académicos.
+                </p>
+            </aside>
+
+            <!-- Contenido -->
+            <div class="ao-perfil-principal">
+
+                <section class="ao-perfil-banner"
+                         aria-label="Mensaje de la marca">
+                    <div>
+                        <p>Aroma y Origen</p>
+                        <h2>Más que una bebida,<br>una historia de origen.</h2>
+                    </div>
+
+                    <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+                </section>
+
+                <!-- Información personal -->
+                <section id="perfilDatos" class="ao-perfil-panel">
+                    <div class="ao-perfil-encabezado">
+                        <h2>Mi perfil</h2>
+
+                        <button type="button"
+                                id="perfilEditar"
+                                class="ao-perfil-boton">
+                            <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                            Editar perfil
+                        </button>
+                    </div>
+
+                    <form id="perfilFormulario">
+                        <fieldset id="perfilCampos" disabled>
+                            <legend class="visually-hidden">
+                                Información personal de demostración
+                            </legend>
+
+                            <div class="ao-perfil-dato">
+                                <label for="perfilNombre">Nombre:</label>
+                                <input id="perfilNombre"
+                                       name="nombre"
+                                       type="text"
+                                       value="María Jiménez"
+                                       autocomplete="name"
+                                       required>
+                            </div>
+
+                            <div class="ao-perfil-dato">
+                                <label for="perfilCorreo">Correo:</label>
+                                <input id="perfilCorreo"
+                                       name="correo"
+                                       type="email"
+                                       value="maria.jimenez@correo.com"
+                                       autocomplete="email"
+                                       required>
+                            </div>
+
+                            <div class="ao-perfil-dato">
+                                <label for="perfilTelefono">Teléfono:</label>
+                                <input id="perfilTelefono"
+                                       name="telefono"
+                                       type="tel"
+                                       value="+506 8888 1234"
+                                       autocomplete="tel"
+                                       required>
+                            </div>
+
+                            <div id="perfilDireccion" class="ao-perfil-dato">
+                                <label for="perfilDireccionTexto">Dirección:</label>
+                                <input id="perfilDireccionTexto"
+                                       name="direccion"
+                                       type="text"
+                                       value="Barrio Los Ángeles, Heredia, Costa Rica"
+                                       autocomplete="street-address"
+                                       required>
+                            </div>
+                        </fieldset>
+
+                        <div id="perfilAcciones"
+                             class="ao-perfil-acciones"
+                             hidden>
+                            <button type="submit" class="ao-perfil-boton">
+                                Guardar cambios
+                            </button>
+
+                            <button type="button"
+                                    id="perfilCancelar"
+                                    class="ao-perfil-boton-secundario">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+
+                    <p id="perfilMensaje"
+                       class="ao-perfil-mensaje"
+                       role="status"
+                       aria-live="polite"></p>
+                </section>
+
+                <!-- Pedidos de ejemplo -->
+                <section id="perfilPedidos" class="ao-perfil-panel">
+                    <div class="ao-perfil-encabezado">
+                        <h2>Mis pedidos recientes</h2>
+                        <span class="ao-perfil-etiqueta">Datos de ejemplo</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table ao-perfil-tabla">
+                            <caption class="visually-hidden">
+                                Pedidos ficticios del perfil de demostración
+                            </caption>
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">#Pedido</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Productos</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th scope="row">#1045</th>
+                                    <td>12/10/2026</td>
+                                    <td>3</td>
+                                    <td>₡22 100</td>
+                                    <td>
+                                        <span class="ao-perfil-estado entregado">
+                                            <i class="fa-solid fa-truck"
+                                               aria-hidden="true"></i>
+                                            Entregado
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">#1052</th>
+                                    <td>20/10/2026</td>
+                                    <td>2</td>
+                                    <td>₡10 700</td>
+                                    <td>
+                                        <span class="ao-perfil-estado camino">
+                                            <i class="fa-solid fa-truck"
+                                               aria-hidden="true"></i>
+                                            En camino
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">#1058</th>
+                                    <td>25/10/2026</td>
+                                    <td>1</td>
+                                    <td>₡6 500</td>
+                                    <td>
+                                        <span class="ao-perfil-estado procesando">
+                                            <i class="fa-regular fa-clock"
+                                               aria-hidden="true"></i>
+                                            Procesando
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</main>

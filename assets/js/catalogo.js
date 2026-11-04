@@ -1,18 +1,14 @@
-// Productos de Aroma y Origen
-// Datos ficticios para el Avance 1
-
 // Mostrar los productos en el catálogo
 function mostrarProductos(lista) {
-
-    // Obtener el contenedor donde aparecerán las tarjetas
     const contenedor = document.getElementById("listaProductos");
 
-    // Limpiar el contenido anterior
+    if (!contenedor) {
+        return;
+    }
+
     contenedor.innerHTML = "";
 
-    // Mostrar un mensaje si no hay productos
     if (lista.length === 0) {
-
         contenedor.innerHTML = `
             <div class="col-12">
                 <div class="alert alert-warning" role="status">
@@ -25,17 +21,13 @@ function mostrarProductos(lista) {
         return;
     }
 
-    // Recorrer la lista de productos
     lista.forEach(producto => {
-
-        // Crear una tarjeta para cada producto
         const tarjeta = `
             <div class="col-12 col-md-6 col-xl-4">
-
                 <div class="card h-100">
 
                     <img
-                        src="../../assets/img/${producto.imagen}"
+                        src="assets/img/${producto.imagen}"
                         class="card-img-top"
                         alt="${producto.nombre} de Aroma y Origen">
 
@@ -53,29 +45,24 @@ function mostrarProductos(lista) {
                             ₡${producto.precio.toLocaleString("es-CR")}
                         </p>
 
-                        <a href="product_list.html?id=${producto.id}"
+                        <a
+                            href="views/shop/product_list.html?id=${producto.id}"
                             class="btn btn-success mt-auto">
                             Ver producto
                         </a>
 
                     </div>
-
                 </div>
-
             </div>
         `;
 
-        // Agregar la tarjeta al catálogo
         contenedor.innerHTML += tarjeta;
-
     });
-
 }
 
 
 // Obtener el nombre de la categoría
 function obtenerCategoria(categoria) {
-
     if (categoria === "cafe") {
         return "Café";
     }
@@ -92,81 +79,84 @@ function obtenerCategoria(categoria) {
 }
 
 
-// Mostrar todos los productos al abrir la página
-mostrarProductos(productos);
-
-// Categoría seleccionada inicialmente
-let categoriaActual = "todos";
-
-// Obtener el buscador
-const buscador = document.getElementById("buscarProducto");
-
-// Obtener los botones de categorías
-const botonesCategorias = document.querySelectorAll("[data-categoria]");
-
 // Normalizar texto para buscar sin importar las tildes
 function normalizarTexto(texto) {
-
     return texto
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .trim();
-
-}
-// Función para filtrar productos
-function filtrarProductos() {
-
-    // Obtener el texto escrito y normalizarlo
-    const textoBusqueda = normalizarTexto(buscador.value);
-
-    // Filtrar según nombre y categoría
-    const productosFiltrados = productos.filter(producto => {
-
-        // Normalizar el nombre del producto
-        const nombreNormalizado = normalizarTexto(producto.nombre);
-
-        // Comprobar coincidencia con la búsqueda
-        const coincideNombre = nombreNormalizado.includes(textoBusqueda);
-
-        // Comprobar coincidencia con la categoría
-        const coincideCategoria =
-            categoriaActual === "todos" ||
-            producto.categoria === categoriaActual;
-
-        return coincideNombre && coincideCategoria;
-
-    });
-
-    // Mostrar los productos encontrados
-    mostrarProductos(productosFiltrados);
-
 }
 
 
-// Buscar productos mientras escribimos
-buscador.addEventListener("input", filtrarProductos);
+// Activar el catálogo DESPUÉS de cargar su HTML
+function iniciarCatalogo() {
+    const contenedor = document.getElementById("listaProductos");
+    const buscador = document.getElementById("buscarProducto");
 
+    const botonesCategorias = document.querySelectorAll(
+        "#contenido [data-categoria]"
+    );
 
-// Cambiar categoría al presionar un botón
-botonesCategorias.forEach(boton => {
+    // Evitar ejecutar el catálogo cuando su vista no está cargada
+    if (!contenedor || !buscador) {
+        return;
+    }
 
-    boton.addEventListener("click", function() {
+    // Evitar duplicar eventos si se inicializa dos veces la misma vista
+    if (contenedor.dataset.inicializado === "true") {
+        return;
+    }
 
-        // Obtener la categoría seleccionada
-        categoriaActual = this.dataset.categoria;
+    let categoriaActual = "todos";
 
-        // Quitar la clase active de todos los botones
-        botonesCategorias.forEach(b => {
-            b.classList.remove("active");
+    function filtrarProductos() {
+        const textoBusqueda = normalizarTexto(buscador.value);
+
+        const productosFiltrados = productos.filter(producto => {
+            const nombreNormalizado = normalizarTexto(
+                producto.nombre
+            );
+
+            const coincideNombre = nombreNormalizado.includes(
+                textoBusqueda
+            );
+
+            const coincideCategoria =
+                categoriaActual === "todos" ||
+                producto.categoria === categoriaActual;
+
+            return coincideNombre && coincideCategoria;
         });
 
-        // Resaltar el botón seleccionado
-        this.classList.add("active");
+        mostrarProductos(productosFiltrados);
+    }
 
-        // Actualizar los productos mostrados
-        filtrarProductos();
+    // Buscar productos mientras escribimos
+    buscador.addEventListener("input", filtrarProductos);
 
+    // Cambiar categoría
+    botonesCategorias.forEach(boton => {
+        boton.classList.toggle(
+            "active",
+            boton.dataset.categoria === categoriaActual
+        );
+
+        boton.addEventListener("click", function () {
+            categoriaActual = this.dataset.categoria;
+
+            botonesCategorias.forEach(b => {
+                b.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            filtrarProductos();
+        });
     });
 
-});
+    // Mostrar los productos al entrar al catálogo
+    filtrarProductos();
+
+    contenedor.dataset.inicializado = "true";
+}
