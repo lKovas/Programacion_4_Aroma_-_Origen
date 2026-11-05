@@ -1,0 +1,66 @@
+<main class="ao-carrito">
+    <section class="ao-carrito-banner">
+        <div class="container">
+            <h1>Tu carrito</h1>
+            <p>Tu próxima pausa está casi lista.</p>
+        </div>
+    </section>
+
+    <div class="container ao-carrito-contenido">
+        <div class="ao-carrito-distribucion">
+
+            <!-- Productos -->
+            <section aria-label="Productos del carrito">
+                <div class="ao-carrito-tabla">
+                    <div class="ao-carrito-cabecera" aria-hidden="true">
+                        <span>Producto</span>
+                        <span>Precio</span>
+                        <span>Cantidad</span>
+                        <span>Subtotal</span>
+                    </div>
+
+                    <div id="carritoProductos"></div>
+                </div>
+
+                <a href="views/shop/catalog.html"
+                   class="ao-carrito-volver">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Seguir comprando
+                </a>
+            </section>
+
+            <!-- Resumen -->
+            <aside class="ao-carrito-resumen" aria-labelledby="tituloResumen">
+                <h2 id="tituloResumen">Resumen del pedido</h2>
+
+                <div class="ao-carrito-linea">
+                    <span>Productos (<span id="carritoCantidad">0</span>)</span>
+                    <span id="carritoSubtotal">₡0</span>
+                </div>
+
+                <div class="ao-carrito-total">
+                    <span>Total</span>
+                    <strong id="carritoTotal">₡0</strong>
+                </div>
+
+                <button type="button"
+                        id="carritoFinalizar"
+                        class="ao-carrito-finalizar"
+                        disabled>
+                    Finalizar compra
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+
+                <p class="ao-carrito-nota">
+                    Compra simulada para fines académicos.
+                </p>
+            </aside>
+
+        </div>
+
+        <p id="carritoMensaje"
+           class="ao-carrito-mensaje"
+           role="status"
+           aria-live="polite"></p>
+    </div>
+</main>

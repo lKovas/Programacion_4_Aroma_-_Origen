@@ -1,42 +1,37 @@
-// Detalle de productos - Aroma y Origen
+// Mostrar el producto después de cargar la vista
+function iniciarDetalleProducto(idProducto) {
+    idProducto = Number(idProducto);
 
-// Obtener el identificador del producto desde la URL
-const parametros = new URLSearchParams(window.location.search);
+    const productoSeleccionado = productos.find(producto => {
+        return producto.id === idProducto;
+    });
 
-const idProducto = Number(parametros.get("id"));
+    const contenedorDetalle = document.getElementById("detalleProducto");
 
-// Buscar el producto seleccionado
-const productoSeleccionado = productos.find(producto => {
-    return producto.id === idProducto;
-});
+    if (!contenedorDetalle) {
+        return;
+    }
 
-// Obtener el contenedor del detalle
-const contenedorDetalle = document.getElementById("detalleProducto");
+    if (!productoSeleccionado) {
+        contenedorDetalle.innerHTML = `
+            <div class="alert alert-warning" role="alert">
+                No encontramos el producto solicitado.
+                Puedes regresar al catálogo para consultar otros artículos.
+            </div>
+        `;
 
-// Comprobar si el producto existe
-if (!productoSeleccionado) {
+        return;
+    }
 
-    contenedorDetalle.innerHTML = `
-        <div class="alert alert-warning" role="alert">
-            No encontramos el producto solicitado.
-            Puedes regresar al catálogo para consultar otros artículos.
-        </div>
-    `;
-
-} else {
-
-    // Mostrar la información del producto
     contenedorDetalle.innerHTML = `
         <div class="row g-5 align-items-center">
 
             <!-- Fotografía -->
             <div class="col-12 col-lg-6">
-
                 <img
-                    src="../../assets/img/${productoSeleccionado.imagen}"
+                    src="assets/img/${productoSeleccionado.imagen}"
                     class="img-fluid rounded"
                     alt="${productoSeleccionado.nombre} de Aroma y Origen">
-
             </div>
 
             <!-- Información -->
@@ -102,16 +97,13 @@ if (!productoSeleccionado) {
                 </button>
 
             </div>
-
         </div>
     `;
-
 }
 
 
 // Convertir la categoría en un nombre legible
 function obtenerNombreCategoria(categoria) {
-
     if (categoria === "cafe") {
         return "Café";
     }
@@ -127,26 +119,53 @@ function obtenerNombreCategoria(categoria) {
     return categoria;
 }
 
-// Mensaje al agregar un producto al carrito
-const botonCarrito = document.getElementById("agregarCarrito");
 
-if (botonCarrito) {
+// Abrir el detalle sin recargar index.html
+document.addEventListener("click", async function (evento) {
+    const enlace = evento.target.closest("#contenido a[href]");
 
-    botonCarrito.addEventListener("click", function() {
+    if (
+        !enlace ||
+        evento.defaultPrevented ||
+        evento.ctrlKey ||
+        evento.metaKey ||
+        evento.shiftKey ||
+        evento.altKey
+    ) {
+        return;
+    }
 
-        const cantidad = Number(document.getElementById("cantidadProducto").value);
+    const destino = new URL(enlace.href, document.baseURI);
 
-        if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 10) {
-            alert("Ingrese una cantidad válida entre 1 y 10.");
-            return;
-        }
+    const rutaDetalle = new URL(
+        "views/shop/product_list.html",
+        document.baseURI
+    );
 
-        if (cantidad === 1) {
-            alert("Se agregó 1 unidad de " + productoSeleccionado.nombre + " al carrito.");
-        } else {
-            alert("Se agregaron " + cantidad + " unidades de " + productoSeleccionado.nombre + " al carrito.");
-        }
+    // Interceptar solamente los enlaces al detalle
+    if (
+        destino.origin !== rutaDetalle.origin ||
+        destino.pathname !== rutaDetalle.pathname
+    ) {
+        return;
+    }
 
-    });
+    evento.preventDefault();
 
-}
+    const idProducto = destino.searchParams.get("id");
+
+    await cargarArchivo(
+        "contenido",
+        "views/shop/product_list.html"
+    );
+
+    if (!document.getElementById("detalleProducto")) {
+        return;
+    }
+
+    iniciarDetalleProducto(idProducto);
+
+    document.title = "Detalle del producto | Aroma y Origen";
+
+    window.scrollTo(0, 0);
+});
